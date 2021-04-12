@@ -1,5 +1,10 @@
 # Univrse
 
+![Hex.pm](https://img.shields.io/hexpm/v/univrse?color=informational)
+![License](https://img.shields.io/github/license/libitx/univrse?color=informational)
+![Build Status](https://img.shields.io/github/workflow/status/libitx/univrse/Elixir%20CI)
+
+
 Coming soon...
 
 ## License
