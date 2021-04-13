@@ -33,7 +33,7 @@ defmodule Univrse.Recipient do
     alg = Map.get(header.headers, "alg")
     opts = header.headers
     |> Map.take(["epk", "iv", "tag"])
-    |> Enum.map(fn {k, v} -> {String.to_existing_atom(k), v} end)
+    |> Enum.map(fn {k, v} -> {String.to_atom(k), v} end)
     |> Keyword.merge(opts)
 
     recipient.key
@@ -62,7 +62,7 @@ defmodule Univrse.Recipient do
     aad = CBOR.encode(["enc", env.header, Keyword.get(opts, :aad, "")])
     opts = header.headers
     |> Map.take(["epk", "iv", "tag"])
-    |> Enum.map(fn {k, v} -> {String.to_existing_atom(k), v} end)
+    |> Enum.map(fn {k, v} -> {String.to_atom(k), v} end)
     |> Keyword.merge(opts)
     |> Keyword.put(:aad, aad)
 
@@ -130,7 +130,7 @@ defmodule Univrse.Recipient do
     aad = CBOR.encode(["enc", header, Keyword.get(opts, :aad, "")])
     opts = headers
     |> Map.take(["iv"])
-    |> Enum.map(fn {k, v} -> {String.to_existing_atom(k), v} end)
+    |> Enum.map(fn {k, v} -> {String.to_atom(k), v} end)
     |> Keyword.merge(opts)
     |> Keyword.put(:aad, aad)
 
@@ -173,7 +173,7 @@ defmodule Univrse.Recipient do
     aad = Keyword.get(opts, :add, "")
     opts = headers
     |> Map.take(["iv"])
-    |> Enum.map(fn {k, v} -> {String.to_existing_atom(k), v} end)
+    |> Enum.map(fn {k, v} -> {String.to_atom(k), v} end)
     |> Keyword.merge(opts)
     |> Keyword.put(:aad, aad)
 

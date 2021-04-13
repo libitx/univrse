@@ -5,7 +5,7 @@ defmodule Univrse.Key do
   Univrse Keys mirror the API of, and are compatible with, JSON JWK keys.
   """
   alias Univrse.Recipient
-  import Univrse.Util, only: [untag: 1]
+  import Univrse.Util, only: [tag_binary: 1, untag: 1]
 
   defdelegate decrypt(env, key, opts \\ []), to: Recipient
   defdelegate encrypt(env, key, headers, opts \\ []), to: Recipient
@@ -50,7 +50,7 @@ defmodule Univrse.Key do
       %{"kty" => type} = params = untag(map)
       params = params
       |> Map.take(["crv", "x", "y", "d", "k"])
-      |> Enum.reduce(%{}, fn {k, v}, p -> Map.put(p, String.to_existing_atom(k), v) end)
+      |> Enum.reduce(%{}, fn {k, v}, p -> Map.put(p, String.to_atom(k), v) end)
       {:ok, %__MODULE__{type: type, params: params}}
     end
   end
@@ -63,6 +63,7 @@ defmodule Univrse.Key do
   def encode(%__MODULE__{type: type, params: params}) do
     params
     |> Map.put(:kty, type)
+    |> tag_binary()
     |> CBOR.encode()
   end
 

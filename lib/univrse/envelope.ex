@@ -208,6 +208,7 @@ defmodule Univrse.Envelope do
 
   def to_script(%__MODULE__{} = env, false) do
     chunks = env
+    |> Map.update!(:payload, &tag_binary/1)
     |> to_list()
     |> Enum.map(&CBOR.encode/1)
 
