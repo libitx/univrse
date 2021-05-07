@@ -18,6 +18,7 @@ defmodule Univrse.Alg do
   alias __MODULE__.AES_GCM
   alias __MODULE__.ECDH_AES
   alias __MODULE__.ES256K
+  alias __MODULE__.ES256K_BSM
   alias __MODULE__.HMAC
 
   @alg_modules %{
@@ -28,6 +29,7 @@ defmodule Univrse.Alg do
     "ECDH-ES+A128GCM" => ECDH_AES,
     "ECDH-ES+A256GCM" => ECDH_AES,
     "ES256K"          => ES256K,
+    "ES256K-BSM"      => ES256K_BSM,
     "HS256"           => HMAC,
     "HS512"           => HMAC
   }

@@ -49,6 +49,11 @@ defmodule Univrse.AlgTest do
     48, 68, 143, 4, 146, 67, 196, 237, 227, 211, 93, 214, 113, 101, 170, 98, 109,
     159, 12, 228, 57, 187, 236, 185, 163, 90, 135, 218, 62, 80, 208, 157, 5, 141,
     228, 8, 215, 148, 101, 233, 242, 6, 62, 95, 8, 52, 198>>
+  @es256k_bsm_sig <<
+    31, 21, 105, 207, 133, 3, 239, 35, 126, 207, 145, 253, 69, 196, 64, 126, 140,
+    214, 235, 197, 237, 133, 56, 2, 43, 156, 56, 193, 201, 43, 180, 111, 24, 74,
+    56, 129, 250, 130, 242, 45, 205, 244, 46, 221, 152, 116, 149, 204, 30, 228,
+    57, 93, 114, 64, 20, 217, 76, 98, 173, 128, 106, 242, 233, 168, 146>>
   @hs256_sig <<
     26, 61, 97, 208, 153, 53, 69, 235, 105, 51, 91, 10, 56, 62, 201, 79, 109, 174,
     65, 171, 226, 37, 213, 101, 90, 172, 82, 13, 250, 134, 119, 91>>
@@ -118,6 +123,11 @@ defmodule Univrse.AlgTest do
       assert sig == @es256k_sig
     end
 
+    test "signs the message with the ES256K-BSM alg" do
+      assert {:ok, sig} = Alg.sign("Hello world!", "ES256K-BSM", @ec_key)
+      assert sig == @es256k_bsm_sig
+    end
+
     test "signs the message with the HS256 alg" do
       assert {:ok, sig} = Alg.sign("Hello world!", "HS256", @oct_256_key)
       assert sig == @hs256_sig
@@ -141,6 +151,10 @@ defmodule Univrse.AlgTest do
   describe "verify/4" do
     test "verifies the message signed with the ES256K alg" do
       assert Alg.verify("Hello world!", @es256k_sig, "ES256K", @ec_key)
+    end
+
+    test "verifies the message signed with the ES256K-BSM alg" do
+      assert Alg.verify("Hello world!", @es256k_bsm_sig, "ES256K-BSM", @ec_key)
     end
 
     test "verifies the message signed with the HS256 alg" do
