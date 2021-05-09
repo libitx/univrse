@@ -1,8 +1,9 @@
 defmodule Univrse.Alg.ES256K_BSM do
   @moduledoc """
-  ES256K algorithm module.
+  ES256K-BSM algorithm module.
 
-  Signs and verifies messages using ECDSA signatures on the secp256k1 curve.
+  Calculates a message digest using the Bitcoin Signed Message algorithm, and
+  uses 65 byte compact signatures.
   """
   alias Univrse.Key
 

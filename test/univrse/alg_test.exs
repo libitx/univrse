@@ -93,6 +93,11 @@ defmodule Univrse.AlgTest do
       assert {:ok, encrypted, %{"iv" => iv, "epk" => epk, "tag" => tag}} = Alg.encrypt("Hello world!", "ECDH-ES+A128GCM", @ec_key)
       assert {:ok, "Hello world!"} = Alg.decrypt(encrypted, "ECDH-ES+A128GCM", @ec_key, iv: iv, epk: epk, tag: tag)
     end
+
+    test "encrypts and decrypts the message with the ECIES-BIE1 alg" do
+      assert {:ok, encrypted, _} = Alg.encrypt("Hello world!", "ECIES-BIE1", @ec_key)
+      assert {:ok, "Hello world!"} = Alg.decrypt(encrypted, "ECIES-BIE1", @ec_key)
+    end
   end
 
 
@@ -113,6 +118,14 @@ defmodule Univrse.AlgTest do
 
     test "returns error if key and alg mismatch" do
       assert {:error, "Invalid key for A128CBC-HS256 algorithm"} = Alg.encrypt("Hello world!", "A128CBC-HS256", @oct_128_key)
+    end
+  end
+
+
+  describe "decrypt/4" do
+    test "decrypts a message from bsv.js using the ECIES-BIE1 alg" do
+      encrypted = Base.decode64!("QklFMQMIQhsRI05VZZDvO74hMGv/0j8EmvmR22Zwn3dn5mnNcYLEgAXGdpwQIvX5/CmiCQZ3WvQFPFhDu+Nz2om8ta8vwaILdEnGInL+CpAykhlkDg==")
+      assert {:ok, "Hello world!"} = Alg.decrypt(encrypted, "ECIES-BIE1", @ec_key)
     end
   end
 

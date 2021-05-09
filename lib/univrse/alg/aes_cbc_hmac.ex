@@ -36,12 +36,7 @@ defmodule Univrse.Alg.AES_CBC_HMAC do
     with <<^tag::binary-size(keylen), _::binary>> <- :crypto.mac(:hmac, hash(alg), m, macmsg),
          result when is_binary(result) <- :crypto.crypto_one_time(cipher(alg), k, iv, encrypted, false)
     do
-      case :binary.last(result) do
-        pad when 0 < pad and pad < 16 ->
-          {:ok, :binary.part(result, 0, byte_size(result) - pad)}
-        _ ->
-          {:ok, result}
-      end
+      {:ok, pkcs7_unpad(result)}
     else
       {:error, _, error} ->
         {:error, error}
@@ -109,6 +104,16 @@ defmodule Univrse.Alg.AES_CBC_HMAC do
       pad ->
         pad = 16 - pad
         message <> :binary.copy(<<pad>>, pad)
+    end
+  end
+
+  # Unpads the message using PKCS7
+  defp pkcs7_unpad(message) do
+    case :binary.last(message) do
+      pad when 0 < pad and pad < 16 ->
+        :binary.part(message, 0, byte_size(message) - pad)
+      _ ->
+        message
     end
   end
 
