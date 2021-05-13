@@ -21,7 +21,7 @@ in `mix.exs`.
 ```elixir
 def deps do
   [
-    {:univrse, "~> 0.1.0"}
+    {:univrse, "~> 0.1"}
   ]
 end
 ```
