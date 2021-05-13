@@ -4,7 +4,7 @@ defmodule Univrse.MixProject do
   def project do
     [
       app: :univrse,
-      version: "0.1.0-beta.1",
+      version: "0.1.0",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -18,7 +18,9 @@ defmodule Univrse.MixProject do
             Univrse.Alg.AES_CBC_HMAC,
             Univrse.Alg.AES_GCM,
             Univrse.Alg.ECDH_AES,
+            Univrse.Alg.ECIES_BIE1,
             Univrse.Alg.ES256K,
+            Univrse.Alg.ES256K_BSM,
             Univrse.Alg.HMAC
           ]
         ]

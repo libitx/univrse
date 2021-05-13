@@ -1,6 +1,20 @@
 defmodule Univrse.Envelope do
   @moduledoc """
-  TODO
+  An Envelope is a structure for encoding any arbitrary data payload for data
+  interchange and/or storage.
+
+  An Envelope consists of a set of headers and a data payload. Optionally one or
+  more `t:Univrse.Signature.t/0` structures may be used to protect data integrity with
+  digital signature and MAC algorithms. And optionally, one or more `t:Univrse.Recipient.t/0`
+  structures may be used to ensure confidentiality of the data payload using
+  encryption algorithms.
+
+  A Univrse Envelope can be serialised into several formats appropriate for data
+  interchange or storage.
+
+  * CBOR encoding
+  * String encoding
+  * Bitcoin script
   """
   alias Univrse.{Header, Key, Signature, Recipient}
   import Univrse.Util, only: [tag_binary: 1, untag: 1]

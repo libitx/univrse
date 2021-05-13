@@ -1,6 +1,14 @@
 defmodule Univrse.Signature do
   @moduledoc """
-  Signature module.
+  A Univrse Signature is a structure attached to an `t:Univrse.Envelope.t/0`,
+  containing a set of headers and a cryptographic signature (or MAC).
+
+  An Envelope may contain one or multiple Signature structures.
+
+  The Signature structure headers must contain an `alg` header and may contain a
+  `kid` header, to help other parties understand what key and algorithm was used
+  to generate the signature or MAC. Once understood, the observing party can
+  verify the signature contained in the structure.
   """
   alias Univrse.{Alg, Envelope, Header, Key}
   import Univrse.Util, only: [tag_binary: 1]

@@ -1,6 +1,18 @@
 defmodule Univrse.Recipient do
   @moduledoc """
-  Recipient module.
+  A Univrse Recipient is a structure attached to an `t:Univrse.Envelope.t/0`
+  that helps the intended recipient(s) decrypt the encrypted payload.
+
+  An encrypted Envelope may contain one or multiple Recipient structures.
+
+  Where the Envelope is intended for a single recipient, the Recipient structure
+  is merely a set of headers that helps the intended recipient identify what key
+  and algorithm is needed to decrypt the payload.
+
+  Where the Envelope is intended for multiple recipients, a Recipient structure
+  may also contain an encrypted Key. In this case, the intended recipient must
+  decrypt the content encryption key, which they can then use to decrypt the
+  payload.
   """
   alias Univrse.{Alg, Envelope, Header, Key}
   import Univrse.Util, only: [tag_binary: 1]

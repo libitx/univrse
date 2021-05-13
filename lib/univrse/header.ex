@@ -3,8 +3,8 @@ defmodule Univrse.Header do
   Header module.
 
   A Universe Header is simply an map of arbitrary key-value pairs. Headers
-  can be found in the `t:Univrse.Envelope.t`, `t:Univrse.Signature.t` and
-  `t:Univrse.Recipient.t` structs.
+  can be found in the `t:Univrse.Envelope.t/0`, `t:Univrse.Signature.t/0` and
+  `t:Univrse.Recipient.t/0` structs.
 
   Known header parameters include:
 

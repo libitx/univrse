@@ -1,8 +1,11 @@
 defmodule Univrse.Key do
   @moduledoc """
-  Key module.
+  A Univrse Key is a CBOR data structure that represents a cryptographic key.
+  Univrse Keys closely mirror JSON Web Keys, and it should prove simple to
+  convert keys between the two specifications.
 
-  Univrse Keys mirror the API of, and are compatible with, JSON JWK keys.
+  Keys are used in the `t:Univrse.Signature.t/0` and `t:Univrse.Recipient.t/0`
+  specifications.
   """
   alias Univrse.Recipient
   import Univrse.Util, only: [tag_binary: 1, untag: 1]
