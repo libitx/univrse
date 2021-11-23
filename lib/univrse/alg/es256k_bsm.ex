@@ -41,9 +41,9 @@ defmodule Univrse.Alg.ES256K_BSM do
   # Returns a digest of the given message using the Bitcoin Signed Message algo
   defp message_digest(msg) do
     prefix = "Bitcoin Signed Message:\n"
-    BSV.Crypto.Hash.sha256_sha256(<<
-      BSV.Util.VarBin.serialize_bin(prefix)::binary,
-      BSV.Util.VarBin.serialize_bin(msg)::binary
+    BSV.Hash.sha256_sha256(<<
+      BSV.VarInt.encode_binary(prefix)::binary,
+      BSV.VarInt.encode_binary(msg)::binary
     >>)
   end
 

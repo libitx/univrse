@@ -48,9 +48,8 @@ defmodule Univrse.CompatTest do
 
     test "parses script, decrypts and verifies sigs", ctx do
       # Decode envelope
-      assert {:ok, env} = @script_env
-      |> BSV.Script.parse(encoding: :hex)
-      |> Envelope.parse_script()
+      assert {:ok, script} = BSV.Script.from_binary(@script_env, encoding: :hex)
+      assert {:ok, env} = Envelope.parse_script(script)
       assert env.header.headers["proto"] == "test"
 
       # Inspect signature
